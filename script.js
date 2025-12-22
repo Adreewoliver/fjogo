@@ -359,4 +359,49 @@ if (formSolicitar) {
         this.reset();
     });
 }
+document.querySelectorAll('form').forEach(form => {
+    form.addEventListener('submit', function(e) {
+        e.preventDefault();
+
+        const btn = this.querySelector('button[type="submit"]');
+        const statusMsg = this.querySelector('#status-envio'); // Busca a div de status dentro deste form
+        const textoOriginalBtn = btn.innerHTML;
+
+        // 1. Feedback Visual de Carregamento
+        btn.disabled = true;
+        btn.classList.add('btn-enviando');
+        btn.innerHTML = '<i class="fas fa-spinner fa-spin"></i> Enviando...';
+
+        // 2. Captura de Dados (exemplo genérico)
+        const nome = this.querySelector('input[type="text"]')?.value || "";
+        const tel = this.querySelector('input[type="tel"]')?.value || "";
+        const meuNumero = "551155214500"; 
+        const texto = `*Novo Contato FJOGO*%0A*Nome:* ${nome}%0A*Tel:* ${tel}`;
+
+        // 3. Abre o WhatsApp em Nova Aba (Permanece na página atual)
+        const url = `https://api.whatsapp.com/send?phone=${meuNumero}&text=${texto}`;
+        window.open(url, '_blank');
+
+        // 4. Mostra Mensagem de Sucesso na Página Atual
+        setTimeout(() => {
+            if (statusMsg) {
+                statusMsg.style.display = 'block'; // Mostra a div verde
+            }
+            
+            btn.innerHTML = '<i class="fas fa-check"></i> Enviado!';
+            btn.style.backgroundColor = "#28a745";
+
+            // 5. Reseta o formulário após 4 segundos
+            setTimeout(() => {
+                this.reset();
+                if (statusMsg) statusMsg.style.display = 'none';
+                btn.disabled = false;
+                btn.classList.remove('btn-enviando');
+                btn.innerHTML = textoOriginalBtn;
+                btn.style.backgroundColor = ""; // Volta à cor original do CSS
+            }, 4000);
+            
+        }, 1000); // Delay de 1s para simular o processamento
+    });
+});
 }

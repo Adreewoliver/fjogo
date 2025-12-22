@@ -767,3 +767,76 @@ footer {
     color: #05162d;
     opacity: 0.9; /* Opcional: deixa um pouco mais suave para leitura longa */
 }
+/* Estilo do container do grupo (ícone + input) */
+.input-group {
+    display: flex;
+    align-items: center;
+    background-color: #f4f4f4; /* Fundo cinza claro ou branco */
+    border-radius: 8px;
+    margin-bottom: 15px;
+    padding: 10px 15px;
+    border: 1px solid #ddd;
+}
+
+/* Estilo do ícone */
+.input-group i {
+    color: #05162d; /* Azul marinho do seu site */
+    margin-right: 10px;
+    width: 20px;
+    text-align: center;
+}
+
+/* Estilo do campo de texto */
+.campo-input {
+    border: none;
+    background: transparent;
+    outline: none;
+    width: 100%;
+    font-size: 14px;
+    color: #333;
+}
+
+/* Estilo do botão de solicitar */
+.btn-solicitar {
+    background-color: #c5a059; /* Dourado/Bronze */
+    color: #05162d;
+    border: none;
+    padding: 15px;
+    border-radius: 8px;
+    width: 100%;
+    font-weight: bold;
+    cursor: pointer;
+    transition: background 0.3s ease;
+}
+
+.btn-solicitar:hover {
+    background-color: #a8874a; /* Tom mais escuro no hover */
+}
+/* Estilo do placeholder */
+.campo-input::placeholder {
+    color: #888; /* Cinza suave */
+    font-size: 14px;
+}
+/* Estilo da mensagem de sucesso */
+.mensagem-sucesso {
+    display: none; /* Escondido por padrão */
+    background-color: #28a745;
+    color: white;
+    padding: 15px;
+    border-radius: 8px;
+    margin-top: 15px;
+    text-align: center;
+    font-weight: bold;
+    animation: fadeIn 0.5s;
+}
+
+@keyframes fadeIn {
+    from { opacity: 0; transform: translateY(-10px); }
+    to { opacity: 1; transform: translateY(0); }
+}
+
+/* Estado de carregamento no botão */
+.btn-enviando {
+    opacity: 0.7;
+    cursor: not-allowed;
+}
