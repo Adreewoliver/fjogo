@@ -12,7 +12,7 @@
         "id": 2,
         "titulo": "Novas Regras para Home Office e a Lei Trabalhista",
         "resumo": "O Teletrabalho ganhou novas diretrizes. Saiba quais são as obrigações do empregador e os direitos do empregado.",
-        "imagem": "../assets/home-office.webp",
+        "imagem": "/assets/home-office.webp",
         "categoria": "Direito Trabalhista",
         "data": "05 de Dezembro, 2025",
         "link": "blog/posts/home-office-regras.html"
@@ -21,7 +21,7 @@
         "id": 3,
         "titulo": "Inventário Extrajudicial: Reduza Custos e Tempo",
         "resumo": "Em caso de consenso, o inventário pode ser feito diretamente em cartório, economizando tempo e recursos da família.",
-        "imagem": "../assets/inventario-extrajudicial.jpg",
+        "imagem": "/assets/inventario-extrajudicial.jpg",
         "categoria": "Direito Civil & Sucessões",
         "data": "20 de Novembro, 2025",
         "link": "blog/posts/inventario-extrajudicial.html"
@@ -30,7 +30,7 @@
         "id": 4,
         "titulo": "O Desafio da Inadimplência em Condomínios e as Soluções Legais",
         "resumo": "Estratégias jurídicas eficazes para lidar com condôminos devedores e garantir a saúde financeira do seu condomínio.",
-        "imagem": "../assets/desafio-inadimplencia.webp",
+        "imagem": "/assets/desafio-inadimplencia.webp",
         "categoria": "Direito Condominial",
         "data": "10 de Novembro, 2025",
         "link": "blog/posts/inadimplencia-condominio.html"
@@ -39,7 +39,7 @@
         "id": 5,
         "titulo": "Decisões Recentes do STJ sobre Aposentadorias Especiais",
         "resumo": "Análise das novas exigências e documentações para a concessão da Aposentadoria Especial após a Reforma da Previdência.",
-        "imagem": "../assets/aposentadoria-especial.jpg",
+        "imagem": "/assets/aposentadoria-especial.jpg",
         "categoria": "Direito Previdenciário",
         "data": "30 de Outubro, 2025",
         "link": "blog/posts/aposentadoria-especial.html"
@@ -48,7 +48,7 @@
         "id": 6,
         "titulo": "A Importância do Contrato Social Bem Elaborado",
         "resumo": "Como um bom Contrato Social protege os sócios contra disputas futuras e define a governança da empresa.",
-        "imagem": "../assets/contrato-social.png",
+        "imagem": "/assets/contrato-social.png",
         "categoria": "Direito Empresarial",
         "data": "15 de Outubro, 2025",
         "link": "blog/posts/contrato-social.html"
@@ -57,7 +57,7 @@
         "id": 7,
         "titulo": "Novidades no Direito Animal",
         "resumo": "O status legal dos animais de estimação e as novas responsabilidades de seus tutores perante a lei civil.",
-        "imagem": "../assets/novidades-animal.jpg",
+        "imagem": "/assets/novidades-animal.jpg",
         "categoria": "Direito Médico Veterinário",
         "data": "01 de Outubro, 2025",
         "link": "blog/posts/direito-animal-novidades.html"
