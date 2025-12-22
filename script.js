@@ -267,4 +267,38 @@ if (blogContainer) {
             container.innerHTML += card;
         });
     })
+    document.addEventListener('DOMContentLoaded', function() {
+    const form = document.getElementById('whatsapp-form');
+    
+    if (form) {
+        form.addEventListener('submit', function(e) {
+            e.preventDefault();
+
+            // 1. Captura os valores digitados
+            const nome = this.querySelector('.campo-nome').value;
+            const email = this.querySelector('.campo-email').value;
+            const telefone = this.querySelector('.campo-telefone').value;
+            const mensagem = this.querySelector('.campo-mensagem').value;
+
+            // 2. Seu número de WhatsApp (DDI + DDD + Numero)
+            const meuNumero = "551155214500"; 
+
+            // 3. Monta o texto formatado (%0A pula linha)
+            const textoWhatsApp = `*Novo Contato - FJOGO Advogados*%0A%0A` +
+                                  `*Nome:* ${nome}%0A` +
+                                  `*E-mail:* ${email}%0A` +
+                                  `*WhatsApp:* ${telefone}%0A` +
+                                  `*Mensagem:* ${mensagem}`;
+
+            // 4. Cria a URL da API
+            const url = `https://api.whatsapp.com/send?phone=${meuNumero}&text=${textoWhatsApp}`;
+
+            // 5. Abre em uma nova aba
+            window.open(url, '_blank');
+            
+            // Limpa o formulário após o envio
+            this.reset();
+        });
+    }
+});
 }
