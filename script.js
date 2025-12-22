@@ -333,4 +333,30 @@ document.addEventListener('DOMContentLoaded', function() {
         });
     }
 });
+// Função para lidar com o formulário de "Solicitar Contato"
+const formSolicitar = document.getElementById('form-solicitar-contato');
+
+if (formSolicitar) {
+    formSolicitar.addEventListener('submit', function(e) {
+        e.preventDefault();
+
+        // Captura os campos internos deste formulário específico
+        const nome = this.querySelector('.nome').value;
+        const email = this.querySelector('.email').value;
+        const tel = this.querySelector('.telefone').value;
+
+        const meuNumero = "551155214500"; 
+        
+        // Monta a mensagem para o WhatsApp
+        const mensagemWhats = `*Solicitação de Contato - FJOGO*%0A%0A` +
+                              `*Nome:* ${nome}%0A` +
+                              `*E-mail:* ${email}%0A` +
+                              `*Telefone:* ${tel}`;
+
+        const url = `https://api.whatsapp.com/send?phone=${meuNumero}&text=${mensagemWhats}`;
+
+        window.open(url, '_blank');
+        this.reset();
+    });
+}
 }
