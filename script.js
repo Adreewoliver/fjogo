@@ -97,7 +97,7 @@ document.addEventListener('DOMContentLoaded', () => {
                 
                 postCard.innerHTML = `
                     <div class="post-image-wrapper">
-                        <img src="${post.imagem || 'assets/blog/default.jpg'}" alt="${post.titulo}">
+                        <img src="${post.imagem || 'assets/default.jpg'}" alt="${post.titulo}">
                     </div>
                     <div class="post-card-content">
                         <span class="category-label">${post.categoria}</span>
