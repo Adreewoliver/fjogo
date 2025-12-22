@@ -301,4 +301,36 @@ if (blogContainer) {
         });
     }
 });
+document.addEventListener('DOMContentLoaded', function() {
+    const form = document.getElementById('form-whatsapp-fjogo');
+
+    if (form) {
+        form.addEventListener('submit', function(e) {
+            e.preventDefault();
+
+            // 1. Captura os valores (ajuste os IDs se forem diferentes no seu HTML)
+            const nome = document.getElementById('nome').value;
+            const tel = document.getElementById('whatsapp').value;
+            const msg = document.getElementById('mensagem').value;
+
+            // 2. Configura o número (Apenas números, com 55 na frente)
+            const meuNumero = "551155214500"; 
+
+            // 3. Monta o texto (O %0A é para quebrar linha no WhatsApp)
+            const texto = `*Novo Contato - FJOGO Advogados*%0A%0A` +
+                          `*Nome:* ${nome}%0A` +
+                          `*WhatsApp:* ${tel}%0A` +
+                          `*Mensagem:* ${msg}`;
+
+            // 4. Cria o link final
+            const url = `https://api.whatsapp.com/send?phone=${meuNumero}&text=${texto}`;
+
+            // 5. Abre em nova aba
+            window.open(url, '_blank');
+            
+            // Limpa o form após enviar
+            form.reset();
+        });
+    }
+});
 }
