@@ -3,7 +3,7 @@
         "id": 1,
         "titulo": "Reforma Tributária: O que a sua empresa precisa saber antes de 2026",
         "resumo": "Analisamos os pontos-chave da Emenda Constitucional 132/2023 e como o IBS e a CBS afetarão o fluxo de caixa do seu negócio.",
-        "imagem": "../assets/reforma-tributaria.jpg",
+        "imagem": "/assets/reforma-tributaria.jpg",
         "categoria": "Direito Tributário",
         "data": "15 de Dezembro, 2025",
         "link": "/blog/posts/reforma-tributaria.html"

@@ -91,7 +91,7 @@ header.scrolled {
 /* --- 3. Hero Section --- */
 .hero {
     height: 100vh;
-    background: url('assets/j.jogo.jpg') no-repeat center center/cover;
+    background: url('/assets/j.jogo.jpg') no-repeat center center/cover;
     position: relative;
     display: flex;
     align-items: center;
