@@ -881,3 +881,34 @@ textarea {
     letter-spacing: 2px;
     border-bottom: 1px solid rgba(255,255,255,0.1);
 }
+/* Garante que o menu mobile suma no Desktop */
+@media (min-width: 993px) {
+    .mobile-menu-overlay, 
+    .mobile-toggle, 
+    .close-menu {
+        display: none !important;
+    }
+    /* Ajuste para o container de contato */
+.contact-wrapper {
+    display: grid;
+    grid-template-columns: 1fr 1fr; /* Divide em duas colunas no desktop */
+    gap: 50px;
+    align-items: start;
+}
+
+/* No mobile, volta a ser uma coluna só */
+@media (max-width: 992px) {
+    .contact-wrapper {
+        grid-template-columns: 1fr;
+    }
+    
+    .google-map iframe {
+        height: 250px; /* Um pouco menor no celular */
+    }
+}
+
+.google-map {
+    width: 100%;
+    line-height: 0; /* Remove espaços extras */
+}
+}
