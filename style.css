@@ -856,3 +856,28 @@ textarea {
     color: #888888;
     opacity: 1;
 }
+/* Garante que o menu mobile tenha fundo sólido e letras brancas sempre */
+.mobile-menu-overlay {
+    background-color: #05162d !important; /* Azul Marinho Sólido */
+    display: flex; /* Garante que o container exista */
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+}
+
+.mobile-menu-overlay nav {
+    display: flex;
+    flex-direction: column;
+    width: 100%;
+    text-align: center;
+}
+
+.mobile-menu-overlay nav a {
+    color: #ffffff !important; /* Letras Brancas */
+    font-size: 1.5rem;
+    padding: 20px;
+    display: block;
+    text-transform: uppercase;
+    letter-spacing: 2px;
+    border-bottom: 1px solid rgba(255,255,255,0.1);
+}
