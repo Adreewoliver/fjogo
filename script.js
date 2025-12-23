@@ -1,407 +1,118 @@
 document.addEventListener('DOMContentLoaded', () => {
     
-    // 1. Inicializa a lógica do Menu Mobile
+    // Configurações para GitHub Pages
+    const REPO_NAME = '/fjogo'; 
+    const WHATSAPP_NUMBER = "551155214500";
+
+    // --- Menu Mobile ---
     const initMobileMenu = () => {
         const mobileBtn = document.querySelector('.mobile-toggle');
         const closeBtn = document.querySelector('.close-menu');
         const mobileMenu = document.querySelector('.mobile-menu-overlay');
         const mobileLinks = document.querySelectorAll('.mobile-menu-overlay nav a');
 
-        const toggleMenu = () => {
-            if (mobileMenu) {
-                mobileMenu.classList.toggle('active');
-            }
-        };
+        const toggleMenu = () => mobileMenu?.classList.toggle('active');
 
         if (mobileBtn) mobileBtn.addEventListener('click', toggleMenu);
         if (closeBtn) closeBtn.addEventListener('click', toggleMenu);
-        
-        // Fecha o menu ao clicar em um link
-        mobileLinks.forEach(link => {
-            link.addEventListener('click', toggleMenu);
-        });
+        mobileLinks.forEach(link => link.addEventListener('click', toggleMenu));
     };
 
-    // 2. Inicializa o efeito de Scroll no Header
-    const initHeaderScroll = () => {
+    // --- Efeitos de Scroll ---
+    const initScrollEffects = () => {
         const header = document.querySelector('header');
-        if (!header) return;
-
-        const handleScroll = () => {
-            // Usa requestAnimationFrame para otimizar o listener de scroll
-            window.requestAnimationFrame(() => {
-                if (window.scrollY > 50) {
-                    header.classList.add('scrolled');
-                } else {
-                    header.classList.remove('scrolled');
-                }
-            });
-        };
-        
-        // Executa uma vez ao carregar para verificar a posição inicial
-        handleScroll(); 
-        window.addEventListener('scroll', handleScroll);
-    };
-
-    // 3. Inicializa a animação suave para links âncora
-    const initSmoothScroll = () => {
-        document.querySelectorAll('a[href^="#"]').forEach(anchor => {
-            anchor.addEventListener('click', function (e) {
-                e.preventDefault();
-                const target = document.querySelector(this.getAttribute('href'));
-                if (target) {
-                    target.scrollIntoView({
-                        behavior: 'smooth'
-                    });
-                }
-            });
+        window.addEventListener('scroll', () => {
+            if (header) {
+                window.scrollY > 50 ? header.classList.add('scrolled') : header.classList.remove('scrolled');
+            }
         });
-    };
 
-    // 4. Inicializa a lógica de Paginação do Blog
-    const initBlogPagination = () => {
-        const postsContainer = document.getElementById('posts-container');
-        const paginationContainer = document.getElementById('pagination-container');
-        const postsPerPage = 5; 
-        let allPosts = []; // Armazena todos os posts
-
-        if (!postsContainer || !paginationContainer) return;
-
-        // Função para carregar os dados do JSON
-        const fetchPosts = async () => {
-            try {
-                const response = await fetch('blog_posts.json'); 
-                if (!response.ok) {
-                    throw new Error('Erro ao carregar o arquivo JSON: ' + response.statusText);
-                }
-                return await response.json();
-            } catch (error) {
-                console.error('Falha ao buscar posts:', error);
-                postsContainer.innerHTML = '<p class="text-center">Não foi possível carregar os posts do blog no momento.</p>';
-                return [];
-            }
-        };
-
-        // Função que renderiza os posts na tela
-        const displayPosts = (posts, page) => {
-            postsContainer.innerHTML = ''; 
-
-            const startIndex = (page - 1) * postsPerPage;
-            const endIndex = startIndex + postsPerPage;
-            
-            const postsToDisplay = posts.slice(startIndex, endIndex);
-
-            postsToDisplay.forEach(post => {
-                const postCard = document.createElement('article');
-                postCard.classList.add('post-card');
-                
-                postCard.innerHTML = `
-                    <div class="post-image-wrapper">
-                        <img src="${post.imagem || 'assets/default.jpg'}" alt="${post.titulo}">
-                    </div>
-                    <div class="post-card-content">
-                        <span class="category-label">${post.categoria}</span>
-                        <h3><a href="${post.link}">${post.titulo}</a></h3>
-                        <p>${post.resumo}</p>
-                        <span class="post-date">${post.data}</span>
-                        <a href="${post.link}" class="read-more">Ler mais &rarr;</a>
-                    </div>
-                `;
-                postsContainer.appendChild(postCard);
-            });
-
-            setupPagination(posts, page);
-        };
-
-        // Função que cria os botões de paginação
-        const setupPagination = (posts, currentPage) => {
-            paginationContainer.innerHTML = ''; 
-
-            const pageCount = Math.ceil(posts.length / postsPerPage);
-            
-            if (pageCount <= 1) return;
-
-            // Função auxiliar para criar um botão de paginação
-            const createPaginationButton = (text, pageIndex, isActive = false) => {
-                const button = document.createElement('a');
-                button.innerHTML = text;
-                button.href = '#'; 
-                button.classList.add('pagination-button');
-                if (isActive) {
-                    button.classList.add('active');
-                }
-
-                button.addEventListener('click', (e) => {
-                    e.preventDefault(); 
-                    
-                    postsContainer.scrollIntoView({ behavior: 'smooth', block: 'start' });
-
-                    displayPosts(allPosts, pageIndex);
-                });
-                return button;
-            };
-
-            // Botão "Anterior"
-            if (currentPage > 1) {
-                const prevButton = createPaginationButton('&#8592; Anterior', currentPage - 1);
-                paginationContainer.appendChild(prevButton);
-            }
-
-            // Botões Numéricos
-            for (let i = 1; i <= pageCount; i++) {
-                const button = createPaginationButton(i, i, i === currentPage);
-                paginationContainer.appendChild(button);
-            }
-
-            // Botão "Próximo"
-            if (currentPage < pageCount) {
-                const nextButton = createPaginationButton('Próximo &#8594;', currentPage + 1);
-                paginationContainer.appendChild(nextButton);
-            }
-        };
-
-        // Inicia o carregamento do blog
-        fetchPosts().then(posts => {
-            allPosts = posts;
-            displayPosts(allPosts, 1); 
-        });
-    };
-
-    // 5. Inicializa a animação de Scroll Reveal
-    const initScrollReveal = () => {
-        // Verifica se a API Intersection Observer é suportada
-        if (!('IntersectionObserver' in window)) {
-            console.warn('Intersection Observer não suportado. Animações de Scroll Reveal desativadas.');
-            return;
-        }
-
-        // Seleciona todos os elementos que devem ser animados
-        // Adicione a classe 'js-scroll' aos elementos no seu HTML que você quer animar
-        const scrollElements = document.querySelectorAll('.js-scroll');
-
-        const observerOptions = {
-            root: null, // viewport
-            rootMargin: '0px',
-            threshold: 0.15 // 15% do elemento visível
-        };
-
-        const scrollObserver = new IntersectionObserver((entries, observer) => {
+        const observer = new IntersectionObserver((entries) => {
             entries.forEach(entry => {
                 if (entry.isIntersecting) {
-                    // Adiciona a classe 'scrolled' para iniciar a animação
                     entry.target.classList.add('scrolled');
-                    // Para de observar o elemento após a animação
-                    observer.unobserve(entry.target);
+                    entry.target.classList.remove('is-hidden');
                 }
             });
-        }, observerOptions);
+        }, { threshold: 0.15 });
 
-        scrollElements.forEach(el => {
-            // Garante que o elemento comece invisível (você deve adicionar o CSS para isso)
-            el.classList.add('is-hidden'); 
-            scrollObserver.observe(el);
+        document.querySelectorAll('.js-scroll').forEach(el => observer.observe(el));
+    };
+
+    // --- Blog (Caminhos Corrigidos) ---
+    const initBlog = async () => {
+        const container = document.getElementById('posts-container') || document.getElementById('blog-posts-container');
+        if (!container) return;
+
+        try {
+            const response = await fetch(`${REPO_NAME}/blog_posts.json`);
+            const posts = await response.json();
+
+            container.innerHTML = ''; 
+            posts.forEach(post => {
+                const card = `
+                    <article class="post-card blog-card">
+                        <div class="post-image-wrapper blog-img">
+                            <img src="${REPO_NAME}/${post.imagem}" alt="${post.titulo}">
+                        </div>
+                        <div class="post-card-content blog-info">
+                            <span class="category-label">${post.categoria || 'Jurídico'}</span>
+                            <h3>${post.titulo}</h3>
+                            <p>${post.resumo}</p>
+                            <a href="${REPO_NAME}${post.link.startsWith('/') ? '' : '/'}${post.link}" class="read-more">Ler mais &rarr;</a>
+                        </div>
+                    </article>`;
+                container.innerHTML += card;
+            });
+        } catch (error) {
+            console.error('Erro ao carregar blog:', error);
+        }
+    };
+
+    // --- Formulários e WhatsApp ---
+    const initForms = () => {
+        document.querySelectorAll('form').forEach(form => {
+            form.addEventListener('submit', function(e) {
+                e.preventDefault();
+
+                const btn = this.querySelector('button[type="submit"]');
+                const statusMsg = this.querySelector('#status-envio') || this.querySelector('.mensagem-sucesso');
+                const textoOriginalBtn = btn.innerHTML;
+
+                // Captura dinâmica de campos
+                const nome = this.querySelector('input[placeholder*="NOME"], .campo-nome, #nome')?.value || "";
+                const email = this.querySelector('input[type="email"], .campo-email')?.value || "";
+                const tel = this.querySelector('input[type="tel"], .campo-telefone, #whatsapp')?.value || "";
+                const msg = this.querySelector('textarea, .campo-mensagem, #mensagem')?.value || "Olá, gostaria de um contato.";
+
+                const textoWhats = `*Contato via Site FJOGO*%0A%0A*Nome:* ${nome}%0A*E-mail:* ${email}%0A*WhatsApp:* ${tel}%0A*Mensagem:* ${msg}`;
+                
+                btn.disabled = true;
+                btn.innerHTML = '<i class="fas fa-spinner fa-spin"></i> Enviando...';
+
+                // Abre WhatsApp e mantém a página
+                window.open(`https://api.whatsapp.com/send?phone=${WHATSAPP_NUMBER}&text=${textoWhats}`, '_blank');
+
+                // Feedback de Sucesso na tela
+                setTimeout(() => {
+                    if (statusMsg) {
+                        statusMsg.style.display = 'block';
+                    }
+                    btn.innerHTML = '<i class="fas fa-check"></i> Enviado!';
+                    
+                    setTimeout(() => {
+                        this.reset();
+                        if (statusMsg) statusMsg.style.display = 'none';
+                        btn.disabled = false;
+                        btn.innerHTML = textoOriginalBtn;
+                    }, 4000);
+                }, 800);
+            });
         });
     };
 
-    // Chamada de todas as funções de inicialização
     initMobileMenu();
-    initHeaderScroll();
-    initSmoothScroll();
-    initBlogPagination();
-    initScrollReveal();
+    initScrollEffects();
+    initBlog();
+    initForms();
 });
-// Carrossel Infinito de Clientes
-const track = document.querySelector('.logos-track');
-if (track) {
-    const slides = Array.from(track.children);
-    // Clona cada slide para criar o efeito de loop contínuo
-    slides.forEach(slide => {
-        const clone = slide.cloneNode(true);
-        track.appendChild(clone);
-    });
-}
-
-// Carregamento de posts do blog em blog-posts-container (se existir)
-const blogContainer = document.getElementById('blog-posts-container');
-if (blogContainer) {
-    // CAMINHO CORRIGIDO: Busca o JSON na raiz (../)
-    fetch('../blog_posts.json')
-        .then(response => {
-            if (!response.ok) throw new Error(response.statusText);
-            return response.json();
-        })
-        .then(posts => {
-            posts.forEach(post => {
-                const card = `
-                    <article class="blog-card">
-                        <div class="blog-img">
-                            <img src="../${post.imagem || 'assets/blog/default.jpg'}" alt="${post.titulo}">
-                        </div>
-                        <div class="blog-info">
-                            <h3>${post.titulo}</h3>
-                            <p>${post.resumo || 'Clique para ler mais sobre este assunto jurídico.'}</p>
-                            <a href="${post.link}" class="read-more">Ler Artigo &rarr;</a>
-                        </div>
-                    </article>
-                `;
-                blogContainer.innerHTML += card;
-            });
-        })
-        .catch(error => console.error('Erro ao carregar posts:', error));
-        fetch('../blog_posts.json')
-    .then(response => response.json())
-    .then(posts => {
-        posts.forEach(post => {
-            const card = `
-                <article class="blog-card">
-                    <div class="blog-img">
-                        <img src="../${post.imagem}" alt="${post.titulo}">
-                    </div>
-                    <div class="blog-info">
-                        <h3>${post.titulo}</h3>
-                        <p>${post.resumo}</p>
-                        <a href="${post.link}" class="read-more">Ler Artigo &rarr;</a>
-                    </div>
-                </article>
-            `;
-            container.innerHTML += card;
-        });
-    })
-    document.addEventListener('DOMContentLoaded', function() {
-    const form = document.getElementById('whatsapp-form');
-    
-    if (form) {
-        form.addEventListener('submit', function(e) {
-            e.preventDefault();
-
-            // 1. Captura os valores digitados
-            const nome = this.querySelector('.campo-nome').value;
-            const email = this.querySelector('.campo-email').value;
-            const telefone = this.querySelector('.campo-telefone').value;
-            const mensagem = this.querySelector('.campo-mensagem').value;
-
-            // 2. Seu número de WhatsApp (DDI + DDD + Numero)
-            const meuNumero = "551155214500"; 
-
-            // 3. Monta o texto formatado (%0A pula linha)
-            const textoWhatsApp = `*Novo Contato - FJOGO Advogados*%0A%0A` +
-                                  `*Nome:* ${nome}%0A` +
-                                  `*E-mail:* ${email}%0A` +
-                                  `*WhatsApp:* ${telefone}%0A` +
-                                  `*Mensagem:* ${mensagem}`;
-
-            // 4. Cria a URL da API
-            const url = `https://api.whatsapp.com/send?phone=${meuNumero}&text=${textoWhatsApp}`;
-
-            // 5. Abre em uma nova aba
-            window.open(url, '_blank');
-            
-            // Limpa o formulário após o envio
-            this.reset();
-        });
-    }
-});
-document.addEventListener('DOMContentLoaded', function() {
-    const form = document.getElementById('form-whatsapp-fjogo');
-
-    if (form) {
-        form.addEventListener('submit', function(e) {
-            e.preventDefault();
-
-            // 1. Captura os valores (ajuste os IDs se forem diferentes no seu HTML)
-            const nome = document.getElementById('nome').value;
-            const tel = document.getElementById('whatsapp').value;
-            const msg = document.getElementById('mensagem').value;
-
-            // 2. Configura o número (Apenas números, com 55 na frente)
-            const meuNumero = "551155214500"; 
-
-            // 3. Monta o texto (O %0A é para quebrar linha no WhatsApp)
-            const texto = `*Novo Contato - FJOGO Advogados*%0A%0A` +
-                          `*Nome:* ${nome}%0A` +
-                          `*WhatsApp:* ${tel}%0A` +
-                          `*Mensagem:* ${msg}`;
-
-            // 4. Cria o link final
-            const url = `https://api.whatsapp.com/send?phone=${meuNumero}&text=${texto}`;
-
-            // 5. Abre em nova aba
-            window.open(url, '_blank');
-            
-            // Limpa o form após enviar
-            form.reset();
-        });
-    }
-});
-// Função para lidar com o formulário de "Solicitar Contato"
-const formSolicitar = document.getElementById('form-solicitar-contato');
-
-if (formSolicitar) {
-    formSolicitar.addEventListener('submit', function(e) {
-        e.preventDefault();
-
-        // Captura os campos internos deste formulário específico
-        const nome = this.querySelector('.nome').value;
-        const email = this.querySelector('.email').value;
-        const tel = this.querySelector('.telefone').value;
-
-        const meuNumero = "551155214500"; 
-        
-        // Monta a mensagem para o WhatsApp
-        const mensagemWhats = `*Solicitação de Contato - FJOGO*%0A%0A` +
-                              `*Nome:* ${nome}%0A` +
-                              `*E-mail:* ${email}%0A` +
-                              `*Telefone:* ${tel}`;
-
-        const url = `https://api.whatsapp.com/send?phone=${meuNumero}&text=${mensagemWhats}`;
-
-        window.open(url, '_blank');
-        this.reset();
-    });
-}
-document.querySelectorAll('form').forEach(form => {
-    form.addEventListener('submit', function(e) {
-        e.preventDefault();
-
-        const btn = this.querySelector('button[type="submit"]');
-        const statusMsg = this.querySelector('#status-envio'); // Busca a div de status dentro deste form
-        const textoOriginalBtn = btn.innerHTML;
-
-        // 1. Feedback Visual de Carregamento
-        btn.disabled = true;
-        btn.classList.add('btn-enviando');
-        btn.innerHTML = '<i class="fas fa-spinner fa-spin"></i> Enviando...';
-
-        // 2. Captura de Dados (exemplo genérico)
-        const nome = this.querySelector('input[type="text"]')?.value || "";
-        const tel = this.querySelector('input[type="tel"]')?.value || "";
-        const meuNumero = "551155214500"; 
-        const texto = `*Novo Contato FJOGO*%0A*Nome:* ${nome}%0A*Tel:* ${tel}`;
-
-        // 3. Abre o WhatsApp em Nova Aba (Permanece na página atual)
-        const url = `https://api.whatsapp.com/send?phone=${meuNumero}&text=${texto}`;
-        window.open(url, '_blank');
-
-        // 4. Mostra Mensagem de Sucesso na Página Atual
-        setTimeout(() => {
-            if (statusMsg) {
-                statusMsg.style.display = 'block'; // Mostra a div verde
-            }
-            
-            btn.innerHTML = '<i class="fas fa-check"></i> Enviado!';
-            btn.style.backgroundColor = "#28a745";
-
-            // 5. Reseta o formulário após 4 segundos
-            setTimeout(() => {
-                this.reset();
-                if (statusMsg) statusMsg.style.display = 'none';
-                btn.disabled = false;
-                btn.classList.remove('btn-enviando');
-                btn.innerHTML = textoOriginalBtn;
-                btn.style.backgroundColor = ""; // Volta à cor original do CSS
-            }, 4000);
-            
-        }, 1000); // Delay de 1s para simular o processamento
-    });
-});
-}
