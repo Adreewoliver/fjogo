@@ -15,7 +15,7 @@
         "imagem": "/assets/home-office.webp",
         "categoria": "Direito Trabalhista",
         "data": "05 de Dezembro, 2025",
-         "link": "/fjogo/blog/posts/home-office-regras.html"
+        "link": "/fjogo/blog/posts/home-office-regras.html"
     },
     {
         "id": 3,
@@ -62,5 +62,4 @@
         "data": "01 de Outubro, 2025",
         "link": "/fjogo/blog/posts/direito-animal-novidades.html"
     }
-    
 ]

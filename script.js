@@ -1,5 +1,5 @@
 document.addEventListener('DOMContentLoaded', () => {
-    
+
     // 1. Inicializa a lógica do Menu Mobile
     const initMobileMenu = () => {
         const mobileBtn = document.querySelector('.mobile-toggle');
@@ -15,7 +15,7 @@ document.addEventListener('DOMContentLoaded', () => {
 
         if (mobileBtn) mobileBtn.addEventListener('click', toggleMenu);
         if (closeBtn) closeBtn.addEventListener('click', toggleMenu);
-        
+
         // Fecha o menu ao clicar em um link
         mobileLinks.forEach(link => {
             link.addEventListener('click', toggleMenu);
@@ -37,9 +37,9 @@ document.addEventListener('DOMContentLoaded', () => {
                 }
             });
         };
-        
+
         // Executa uma vez ao carregar para verificar a posição inicial
-        handleScroll(); 
+        handleScroll();
         window.addEventListener('scroll', handleScroll);
     };
 
@@ -62,7 +62,7 @@ document.addEventListener('DOMContentLoaded', () => {
     const initBlogPagination = () => {
         const postsContainer = document.getElementById('posts-container');
         const paginationContainer = document.getElementById('pagination-container');
-        const postsPerPage = 5; 
+        const postsPerPage = 5;
         let allPosts = []; // Armazena todos os posts
 
         if (!postsContainer || !paginationContainer) return;
@@ -70,7 +70,7 @@ document.addEventListener('DOMContentLoaded', () => {
         // Função para carregar os dados do JSON
         const fetchPosts = async () => {
             try {
-                const response = await fetch('blog_posts.json'); 
+                const response = await fetch('blog_posts.json');
                 if (!response.ok) {
                     throw new Error('Erro ao carregar o arquivo JSON: ' + response.statusText);
                 }
@@ -84,17 +84,17 @@ document.addEventListener('DOMContentLoaded', () => {
 
         // Função que renderiza os posts na tela
         const displayPosts = (posts, page) => {
-            postsContainer.innerHTML = ''; 
+            postsContainer.innerHTML = '';
 
             const startIndex = (page - 1) * postsPerPage;
             const endIndex = startIndex + postsPerPage;
-            
+
             const postsToDisplay = posts.slice(startIndex, endIndex);
 
             postsToDisplay.forEach(post => {
                 const postCard = document.createElement('article');
                 postCard.classList.add('post-card');
-                
+
                 postCard.innerHTML = `
                     <div class="post-image-wrapper">
                         <img src="${post.imagem || 'assets/default.jpg'}" alt="${post.titulo}">
@@ -115,25 +115,25 @@ document.addEventListener('DOMContentLoaded', () => {
 
         // Função que cria os botões de paginação
         const setupPagination = (posts, currentPage) => {
-            paginationContainer.innerHTML = ''; 
+            paginationContainer.innerHTML = '';
 
             const pageCount = Math.ceil(posts.length / postsPerPage);
-            
+
             if (pageCount <= 1) return;
 
             // Função auxiliar para criar um botão de paginação
             const createPaginationButton = (text, pageIndex, isActive = false) => {
                 const button = document.createElement('a');
                 button.innerHTML = text;
-                button.href = '#'; 
+                button.href = '#';
                 button.classList.add('pagination-button');
                 if (isActive) {
                     button.classList.add('active');
                 }
 
                 button.addEventListener('click', (e) => {
-                    e.preventDefault(); 
-                    
+                    e.preventDefault();
+
                     postsContainer.scrollIntoView({ behavior: 'smooth', block: 'start' });
 
                     displayPosts(allPosts, pageIndex);
@@ -163,7 +163,7 @@ document.addEventListener('DOMContentLoaded', () => {
         // Inicia o carregamento do blog
         fetchPosts().then(posts => {
             allPosts = posts;
-            displayPosts(allPosts, 1); 
+            displayPosts(allPosts, 1);
         });
     };
 
@@ -198,7 +198,7 @@ document.addEventListener('DOMContentLoaded', () => {
 
         scrollElements.forEach(el => {
             // Garante que o elemento comece invisível (você deve adicionar o CSS para isso)
-            el.classList.add('is-hidden'); 
+            el.classList.add('is-hidden');
             scrollObserver.observe(el);
         });
     };
@@ -248,11 +248,11 @@ if (blogContainer) {
             });
         })
         .catch(error => console.error('Erro ao carregar posts:', error));
-        fetch('../blog_posts.json')
-    .then(response => response.json())
-    .then(posts => {
-        posts.forEach(post => {
-            const card = `
+    fetch('../blog_posts.json')
+        .then(response => response.json())
+        .then(posts => {
+            posts.forEach(post => {
+                const card = `
                 <article class="blog-card">
                     <div class="blog-img">
                         <img src="../${post.imagem}" alt="${post.titulo}">
@@ -264,169 +264,169 @@ if (blogContainer) {
                     </div>
                 </article>
             `;
-            container.innerHTML += card;
-        });
-    })
-    document.addEventListener('DOMContentLoaded', function() {
-    const form = document.getElementById('whatsapp-form');
-    
-    if (form) {
-        form.addEventListener('submit', function(e) {
+                container.innerHTML += card;
+            });
+        })
+    document.addEventListener('DOMContentLoaded', function () {
+        const form = document.getElementById('whatsapp-form');
+
+        if (form) {
+            form.addEventListener('submit', function (e) {
+                e.preventDefault();
+
+                // 1. Captura os valores digitados
+                const nome = this.querySelector('.campo-nome').value;
+                const email = this.querySelector('.campo-email').value;
+                const telefone = this.querySelector('.campo-telefone').value;
+                const mensagem = this.querySelector('.campo-mensagem').value;
+
+                // 2. Seu número de WhatsApp (DDI + DDD + Numero)
+                const meuNumero = "551155214500";
+
+                // 3. Monta o texto formatado (%0A pula linha)
+                const textoWhatsApp = `*Novo Contato - FJOGO Advogados*%0A%0A` +
+                    `*Nome:* ${nome}%0A` +
+                    `*E-mail:* ${email}%0A` +
+                    `*WhatsApp:* ${telefone}%0A` +
+                    `*Mensagem:* ${mensagem}`;
+
+                // 4. Cria a URL da API
+                const url = `https://api.whatsapp.com/send?phone=${meuNumero}&text=${textoWhatsApp}`;
+
+                // 5. Abre em uma nova aba
+                window.open(url, '_blank');
+
+                // Limpa o formulário após o envio
+                this.reset();
+            });
+        }
+    });
+    document.addEventListener('DOMContentLoaded', function () {
+        const form = document.getElementById('form-whatsapp-fjogo');
+
+        if (form) {
+            form.addEventListener('submit', function (e) {
+                e.preventDefault();
+
+                // 1. Captura os valores (ajuste os IDs se forem diferentes no seu HTML)
+                const nome = document.getElementById('nome').value;
+                const tel = document.getElementById('whatsapp').value;
+                const msg = document.getElementById('mensagem').value;
+
+                // 2. Configura o número (Apenas números, com 55 na frente)
+                const meuNumero = "551155214500";
+
+                // 3. Monta o texto (O %0A é para quebrar linha no WhatsApp)
+                const texto = `*Novo Contato - FJOGO Advogados*%0A%0A` +
+                    `*Nome:* ${nome}%0A` +
+                    `*WhatsApp:* ${tel}%0A` +
+                    `*Mensagem:* ${msg}`;
+
+                // 4. Cria o link final
+                const url = `https://api.whatsapp.com/send?phone=${meuNumero}&text=${texto}`;
+
+                // 5. Abre em nova aba
+                window.open(url, '_blank');
+
+                // Limpa o form após enviar
+                form.reset();
+            });
+        }
+    });
+    // Função para lidar com o formulário de "Solicitar Contato"
+    const formSolicitar = document.getElementById('form-solicitar-contato');
+
+    if (formSolicitar) {
+        formSolicitar.addEventListener('submit', function (e) {
             e.preventDefault();
 
-            // 1. Captura os valores digitados
-            const nome = this.querySelector('.campo-nome').value;
-            const email = this.querySelector('.campo-email').value;
-            const telefone = this.querySelector('.campo-telefone').value;
-            const mensagem = this.querySelector('.campo-mensagem').value;
+            // Captura os campos internos deste formulário específico
+            const nome = this.querySelector('.nome').value;
+            const email = this.querySelector('.email').value;
+            const tel = this.querySelector('.telefone').value;
 
-            // 2. Seu número de WhatsApp (DDI + DDD + Numero)
-            const meuNumero = "551155214500"; 
+            const meuNumero = "551155214500";
 
-            // 3. Monta o texto formatado (%0A pula linha)
-            const textoWhatsApp = `*Novo Contato - FJOGO Advogados*%0A%0A` +
-                                  `*Nome:* ${nome}%0A` +
-                                  `*E-mail:* ${email}%0A` +
-                                  `*WhatsApp:* ${telefone}%0A` +
-                                  `*Mensagem:* ${mensagem}`;
+            // Monta a mensagem para o WhatsApp
+            const mensagemWhats = `*Solicitação de Contato - FJOGO*%0A%0A` +
+                `*Nome:* ${nome}%0A` +
+                `*E-mail:* ${email}%0A` +
+                `*Telefone:* ${tel}`;
 
-            // 4. Cria a URL da API
-            const url = `https://api.whatsapp.com/send?phone=${meuNumero}&text=${textoWhatsApp}`;
+            const url = `https://api.whatsapp.com/send?phone=${meuNumero}&text=${mensagemWhats}`;
 
-            // 5. Abre em uma nova aba
             window.open(url, '_blank');
-            
-            // Limpa o formulário após o envio
             this.reset();
         });
     }
-});
-document.addEventListener('DOMContentLoaded', function() {
-    const form = document.getElementById('form-whatsapp-fjogo');
-
-    if (form) {
-        form.addEventListener('submit', function(e) {
+    document.querySelectorAll('form').forEach(form => {
+        form.addEventListener('submit', function (e) {
             e.preventDefault();
 
-            // 1. Captura os valores (ajuste os IDs se forem diferentes no seu HTML)
-            const nome = document.getElementById('nome').value;
-            const tel = document.getElementById('whatsapp').value;
-            const msg = document.getElementById('mensagem').value;
+            const btn = this.querySelector('button[type="submit"]');
+            const statusMsg = this.querySelector('#status-envio'); // Busca a div de status dentro deste form
+            const textoOriginalBtn = btn.innerHTML;
 
-            // 2. Configura o número (Apenas números, com 55 na frente)
-            const meuNumero = "551155214500"; 
+            // 1. Feedback Visual de Carregamento
+            btn.disabled = true;
+            btn.classList.add('btn-enviando');
+            btn.innerHTML = '<i class="fas fa-spinner fa-spin"></i> Enviando...';
 
-            // 3. Monta o texto (O %0A é para quebrar linha no WhatsApp)
-            const texto = `*Novo Contato - FJOGO Advogados*%0A%0A` +
-                          `*Nome:* ${nome}%0A` +
-                          `*WhatsApp:* ${tel}%0A` +
-                          `*Mensagem:* ${msg}`;
+            // 2. Captura de Dados (exemplo genérico)
+            const nome = this.querySelector('input[type="text"]')?.value || "";
+            const tel = this.querySelector('input[type="tel"]')?.value || "";
+            const meuNumero = "551155214500";
+            const texto = `*Novo Contato FJOGO*%0A*Nome:* ${nome}%0A*Tel:* ${tel}`;
 
-            // 4. Cria o link final
+            // 3. Abre o WhatsApp em Nova Aba (Permanece na página atual)
             const url = `https://api.whatsapp.com/send?phone=${meuNumero}&text=${texto}`;
-
-            // 5. Abre em nova aba
             window.open(url, '_blank');
-            
-            // Limpa o form após enviar
-            form.reset();
-        });
-    }
-});
-// Função para lidar com o formulário de "Solicitar Contato"
-const formSolicitar = document.getElementById('form-solicitar-contato');
 
-if (formSolicitar) {
-    formSolicitar.addEventListener('submit', function(e) {
-        e.preventDefault();
-
-        // Captura os campos internos deste formulário específico
-        const nome = this.querySelector('.nome').value;
-        const email = this.querySelector('.email').value;
-        const tel = this.querySelector('.telefone').value;
-
-        const meuNumero = "551155214500"; 
-        
-        // Monta a mensagem para o WhatsApp
-        const mensagemWhats = `*Solicitação de Contato - FJOGO*%0A%0A` +
-                              `*Nome:* ${nome}%0A` +
-                              `*E-mail:* ${email}%0A` +
-                              `*Telefone:* ${tel}`;
-
-        const url = `https://api.whatsapp.com/send?phone=${meuNumero}&text=${mensagemWhats}`;
-
-        window.open(url, '_blank');
-        this.reset();
-    });
-}
-document.querySelectorAll('form').forEach(form => {
-    form.addEventListener('submit', function(e) {
-        e.preventDefault();
-
-        const btn = this.querySelector('button[type="submit"]');
-        const statusMsg = this.querySelector('#status-envio'); // Busca a div de status dentro deste form
-        const textoOriginalBtn = btn.innerHTML;
-
-        // 1. Feedback Visual de Carregamento
-        btn.disabled = true;
-        btn.classList.add('btn-enviando');
-        btn.innerHTML = '<i class="fas fa-spinner fa-spin"></i> Enviando...';
-
-        // 2. Captura de Dados (exemplo genérico)
-        const nome = this.querySelector('input[type="text"]')?.value || "";
-        const tel = this.querySelector('input[type="tel"]')?.value || "";
-        const meuNumero = "551155214500"; 
-        const texto = `*Novo Contato FJOGO*%0A*Nome:* ${nome}%0A*Tel:* ${tel}`;
-
-        // 3. Abre o WhatsApp em Nova Aba (Permanece na página atual)
-        const url = `https://api.whatsapp.com/send?phone=${meuNumero}&text=${texto}`;
-        window.open(url, '_blank');
-
-        // 4. Mostra Mensagem de Sucesso na Página Atual
-        setTimeout(() => {
-            if (statusMsg) {
-                statusMsg.style.display = 'block'; // Mostra a div verde
-            }
-            
-            btn.innerHTML = '<i class="fas fa-check"></i> Enviado!';
-            btn.style.backgroundColor = "#28a745";
-
-            // 5. Reseta o formulário após 4 segundos
+            // 4. Mostra Mensagem de Sucesso na Página Atual
             setTimeout(() => {
-                this.reset();
-                if (statusMsg) statusMsg.style.display = 'none';
-                btn.disabled = false;
-                btn.classList.remove('btn-enviando');
-                btn.innerHTML = textoOriginalBtn;
-                btn.style.backgroundColor = ""; // Volta à cor original do CSS
-            }, 4000);
-            
-        }, 1000); // Delay de 1s para simular o processamento
-    });
-});
-// --- Abrir links externos e de serviços em nova aba ---
-const initExternalLinks = () => {
-    const links = document.querySelectorAll('a');
-    
-    links.forEach(link => {
-        const href = link.getAttribute('href');
-        
-        // Verifica se é link externo (http), WhatsApp, ou páginas de subpastas (serviços/blog)
-        if (
-            href.startsWith('http') || 
-            href.includes('wa.me') || 
-            href.includes('servicos/') || 
-            href.includes('blog/')
-        ) {
-            link.setAttribute('target', '_blank');
-            link.setAttribute('rel', 'noopener noreferrer'); // Segurança extra
-        }
-    });
-};
+                if (statusMsg) {
+                    statusMsg.style.display = 'block'; // Mostra a div verde
+                }
 
-// Chame a função dentro do seu DOMContentLoaded
-document.addEventListener('DOMContentLoaded', () => {
-    // ... suas outras funções (initMobileMenu, etc)
-    initExternalLinks(); 
-});
+                btn.innerHTML = '<i class="fas fa-check"></i> Enviado!';
+                btn.style.backgroundColor = "#28a745";
+
+                // 5. Reseta o formulário após 4 segundos
+                setTimeout(() => {
+                    this.reset();
+                    if (statusMsg) statusMsg.style.display = 'none';
+                    btn.disabled = false;
+                    btn.classList.remove('btn-enviando');
+                    btn.innerHTML = textoOriginalBtn;
+                    btn.style.backgroundColor = ""; // Volta à cor original do CSS
+                }, 4000);
+
+            }, 1000); // Delay de 1s para simular o processamento
+        });
+    });
+    // --- Abrir links externos e de serviços em nova aba ---
+    const initExternalLinks = () => {
+        const links = document.querySelectorAll('a');
+
+        links.forEach(link => {
+            const href = link.getAttribute('href');
+
+            // Verifica se é link externo (http), WhatsApp, ou páginas de subpastas (serviços/blog)
+            if (
+                href.startsWith('http') ||
+                href.includes('wa.me') ||
+                href.includes('servicos/') ||
+                href.includes('blog/')
+            ) {
+                link.setAttribute('target', '_blank');
+                link.setAttribute('rel', 'noopener noreferrer'); // Segurança extra
+            }
+        });
+    };
+
+    // Chame a função dentro do seu DOMContentLoaded
+    document.addEventListener('DOMContentLoaded', () => {
+        // ... suas outras funções (initMobileMenu, etc)
+        initExternalLinks();
+    });
 }
