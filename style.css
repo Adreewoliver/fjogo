@@ -840,3 +840,19 @@ footer {
     opacity: 0.7;
     cursor: not-allowed;
 }
+/* Se o fundo do input for BRANCO, a letra deve ser PRETA */
+.campo-input, 
+input[type="text"], 
+input[type="email"], 
+input[type="tel"], 
+textarea {
+    background-color: #ffffff !important; /* Força o fundo branco */
+    color: #05162d !important;           /* Força a letra azul marinho/preta */
+    opacity: 1;                          /* Garante que não esteja transparente */
+}
+
+/* Estilo para o "Placeholder" (o texto que some quando você digita) */
+::placeholder {
+    color: #888888;
+    opacity: 1;
+}
