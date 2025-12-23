@@ -6,7 +6,7 @@
         "imagem": "/assets/reforma-tributaria.jpg",
         "categoria": "Direito Tributário",
         "data": "15 de Dezembro, 2025",
-        "link": "/blog/posts/reforma-tributaria.html"
+        "link": "/fjogo/blog/posts/reforma-tributaria.html"
     },
     {
         "id": 2,
@@ -15,7 +15,7 @@
         "imagem": "/assets/home-office.webp",
         "categoria": "Direito Trabalhista",
         "data": "05 de Dezembro, 2025",
-        "link": "blog/posts/home-office-regras.html"
+         "link": "/fjogo/blog/posts/home-office-regras.html"
     },
     {
         "id": 3,
@@ -24,7 +24,7 @@
         "imagem": "/assets/inventario-extrajudicial.jpg",
         "categoria": "Direito Civil & Sucessões",
         "data": "20 de Novembro, 2025",
-        "link": "blog/posts/inventario-extrajudicial.html"
+        "link": "/fjogo/blog/posts/inventario-extrajudicial.html"
     },
     {
         "id": 4,
@@ -33,7 +33,7 @@
         "imagem": "/assets/desafio-inadimplencia.webp",
         "categoria": "Direito Condominial",
         "data": "10 de Novembro, 2025",
-        "link": "blog/posts/inadimplencia-condominio.html"
+        "link": "/fjogo/blog/posts/inadimplencia-condominio.html"
     },
     {
         "id": 5,
@@ -42,7 +42,7 @@
         "imagem": "/assets/aposentadoria-especial.jpg",
         "categoria": "Direito Previdenciário",
         "data": "30 de Outubro, 2025",
-        "link": "blog/posts/aposentadoria-especial.html"
+        "link": "/fjogo/blog/posts/aposentadoria-especial.html"
     },
     {
         "id": 6,
@@ -51,7 +51,7 @@
         "imagem": "/assets/contrato-social.png",
         "categoria": "Direito Empresarial",
         "data": "15 de Outubro, 2025",
-        "link": "blog/posts/contrato-social.html"
+        "link": "/fjogo/blog/posts/contrato-social.html"
     },
     {
         "id": 7,
@@ -60,7 +60,7 @@
         "imagem": "/assets/novidades-animal.jpg",
         "categoria": "Direito Médico Veterinário",
         "data": "01 de Outubro, 2025",
-        "link": "blog/posts/direito-animal-novidades.html"
+        "link": "/fjogo/blog/posts/direito-animal-novidades.html"
     }
     
 ]
