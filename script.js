@@ -404,4 +404,29 @@ document.querySelectorAll('form').forEach(form => {
         }, 1000); // Delay de 1s para simular o processamento
     });
 });
+// --- Abrir links externos e de serviços em nova aba ---
+const initExternalLinks = () => {
+    const links = document.querySelectorAll('a');
+    
+    links.forEach(link => {
+        const href = link.getAttribute('href');
+        
+        // Verifica se é link externo (http), WhatsApp, ou páginas de subpastas (serviços/blog)
+        if (
+            href.startsWith('http') || 
+            href.includes('wa.me') || 
+            href.includes('servicos/') || 
+            href.includes('blog/')
+        ) {
+            link.setAttribute('target', '_blank');
+            link.setAttribute('rel', 'noopener noreferrer'); // Segurança extra
+        }
+    });
+};
+
+// Chame a função dentro do seu DOMContentLoaded
+document.addEventListener('DOMContentLoaded', () => {
+    // ... suas outras funções (initMobileMenu, etc)
+    initExternalLinks(); 
+});
 }
